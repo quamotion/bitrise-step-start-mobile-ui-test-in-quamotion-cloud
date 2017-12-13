@@ -86,14 +86,16 @@ inputs:
     opts:
       title: "Version of the test package to run"
       summary: The version of the test package to run.
-      description: The version of the test package to run.
+      description: |
+        The version of the test package to run.
       is_expand: true
       is_required: true
   - app_os: The operating system to test on
     opts:
       title: "The operating system to test on"
       summary: The operating system to test on. Can be iOS or Android.
-      descripton: The operating system to test on. Can be iOS or Android.
+      descripton: |
+        The operating system to test on. Can be iOS or Android.
       is_expand: true
       is_required: true
    - app_id: The version of the app to test.
@@ -107,7 +109,8 @@ inputs:
      opts:
        title: "The version of the app to test."
        summary: "The version of the app to test."
-       description: The version of the app to test.
+       description: |
+         The version of the app to test.
        is_expand: true
        is_required: true
 
