@@ -21,7 +21,7 @@ QUAMOTION_TEST_JOBS=`curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" 
 QUAMOTION_TEST_JOB=`echo $QUAMOTION_TEST_JOBS | jq -r '.[0].id'`
 
 # Forward the job output to Bitrise
-wscat -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" -c "${QUAMOTION_URL}ws?project=${QUAMOTION_PROJECT_NAME}&jobId={QUAMOTION_TEST_JOB}"
+wscat -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" -c "${QUAMOTION_URL}ws?project=${QUAMOTION_PROJECT_NAME}&jobId=${QUAMOTION_TEST_JOB}"
 
 # Download the artifact zip file
 curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/artifacts -O quamotion-artifacts.zip
