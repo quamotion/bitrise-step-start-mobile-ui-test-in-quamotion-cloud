@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 echo "Logging in to Quamotion Cloud"
 QUAMOTION_URL=https://cloud.quamotion.mobi
@@ -19,26 +19,16 @@ QUAMOTION_TEST_JOB="null"
 while [ "$QUAMOTION_TEST_JOB" == "null" ]
 do
   QUAMOTION_TEST_JOBS=`curl -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/testRun/${QUAMOTION_TEST_RUN_ID}/jobs || exit 0`
-  echo "Test jobs: $QUAMOTION_TEST_JOBS"
-
   QUAMOTION_TEST_JOB=`echo $QUAMOTION_TEST_JOBS | jq -r '.[0].id'`
-  echo "Test job ID: $QUAMOTION_TEST_JOB"
+  echo "The test job is being queued"
 done
 
 # Forward the job output to Bitrise
-date
-
-echo "-- build log start --"
-#curl -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/log/live
-
-wget -d -v -O - --header "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/log/live
-
-echo "-- build log end  --"
-date
+wget -O - --header "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/log/live
 
 # Download the artifact zip file
 echo "Downloading build artifact to quamotion-artifacts.zip"
-curl -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/artifacts -O quamotion-artifacts.zip
+curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" -O quamotion-artifacts.zip ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/artifacts
 
 #
 # --- Export Environment Variables for other Steps:
