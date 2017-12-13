@@ -52,11 +52,9 @@ run_if: ""
 deps:
   brew:
   - name: curl
-  - name: node
   - name: jq
   apt_get:
   - name: curl
-  - name: npm
   - name: jq
 
 toolkit:

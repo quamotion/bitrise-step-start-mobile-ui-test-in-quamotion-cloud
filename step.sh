@@ -7,10 +7,8 @@ wscat -V
 
 echo "Logging in to Quamotion Cloud"
 QUAMOTION_URL=https://cloud.quamotion.mobi
-QUAMOTION_WS_URL=wss://cloud.quamotion.mobi
 QUAMOTION_ACCESS_TOKEN=`curl -s -d "apiKey=$quamotion_api_key" ${QUAMOTION_URL}/api/login | jq -r '.access_token'`
 QUAMOTION_RELATIVE_URL=`curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}/api/project | jq -r '.[0].relativeUrl'`
-QUAMOTION_PROJECT_NAME=`curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}/api/project | jq -r '.[0].name'`
 echo "Connected to the Quamotion project at $QUAMOTION_URL$QUAMOTION_RELATIVE_URL"
 
 echo "Scheduling the test run"
@@ -23,7 +21,7 @@ QUAMOTION_TEST_JOBS=`curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" 
 QUAMOTION_TEST_JOB=`echo $QUAMOTION_TEST_JOBS | jq -r '.[0].id'`
 
 # Forward the job output to Bitrise
-wscat -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" -c "${QUAMOTION_WS_URL}/ws?project=${QUAMOTION_PROJECT_NAME}&jobId=${QUAMOTION_TEST_JOB}"
+curl -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_PROJECT_URL}api/job/${QUAMOTION_TEST_JOB}/log/live
 
 # Download the artifact zip file
 curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/artifacts -O quamotion-artifacts.zip
