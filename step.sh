@@ -1,8 +1,9 @@
 #!/bin/bash
 set -ex
 
-echo "Installing wscat"
+echo "Installing wscat and verifying"
 npm install -g wscat
+wscat -V
 
 echo "Logging in to Quamotion Cloud"
 QUAMOTION_URL=https://cloud.quamotion.mobi
