@@ -28,7 +28,7 @@ wget -O - --header "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_U
 
 # Download the artifact zip file
 echo "Downloading build artifact to quamotion-artifacts.zip"
-curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" -O quamotion-artifacts.zip ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/artifacts
+curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" -o quamotion-artifacts.zip ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/artifacts
 
 #
 # --- Export Environment Variables for other Steps:
