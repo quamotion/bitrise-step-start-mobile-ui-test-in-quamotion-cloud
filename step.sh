@@ -29,8 +29,9 @@ done
 date
 
 echo "-- build log start --"
-curl -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/log/live
-curl -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/log/live
+#curl -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/log/live
+
+wget -O - --header "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/log/live
 
 echo "-- build log end  --"
 date
