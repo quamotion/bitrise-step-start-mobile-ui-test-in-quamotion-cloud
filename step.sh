@@ -1,7 +1,19 @@
 #!/bin/bash
 set -ex
 
-echo "This is the value specified for the input 'example_step_input': ${example_step_input}"
+echo "Installing wscat"
+npm install -g wscat
+
+echo "Logging in to Quamotion Cloud"
+QUAMOTION_URL=https://cloud.quamotion.mobi
+QUAMOTION_ACCESS_TOKEN=`curl -s -d "apiKey=$quamotion_api_key" ${QUAMOTION_URL}/api/login | jq -r '.access_token'`
+QUAMOTION_RELATIVE_URL=`curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}/api/project | jq -r '.[0].relativeUrl'`
+echo "Connected to the Quamotion project at $QUAMOTION_URL$QUAMOTION_RELATIVE_URL"
+
+echo "Scheduling the test run"
+QUAMOTION_TEST_RUN_REQUEST="{ \"app\": { \"operatingSystem\": \"$app_os\", \"appId\": \"$app_id\", \"version\": \"$app_version\" } ,\"testPackage\": { \"name\": \"$test_package_name\", \"version\": \"$test_package_version\" }, \"deviceGroupId\": \"57b9dda4-d1e4-423f-89c7-6f523daecb2e\"}"
+QUAMOTION_TEST_RUN=`curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" -H "Content-Type: application/json" -d "$QUAMOTION_TEST_RUN_REQUEST" -X POST ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/testRun`
+echo "Successfully scheduled the test run"
 
 #
 # --- Export Environment Variables for other Steps:
