@@ -26,11 +26,14 @@ do
 done
 
 # Forward the job output to Bitrise
+date
+
 echo "-- build log start --"
 curl -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/log/live
 curl -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/log/live
 
 echo "-- build log end  --"
+date
 
 # Download the artifact zip file
 echo "Downloading build artifact to quamotion-artifacts.zip"
