@@ -1,10 +1,6 @@
 #!/bin/bash
 set -ex
 
-echo "Installing wscat and verifying"
-npm install -g wscat
-wscat -V
-
 echo "Logging in to Quamotion Cloud"
 QUAMOTION_URL=https://cloud.quamotion.mobi
 QUAMOTION_ACCESS_TOKEN=`curl -s -d "apiKey=$quamotion_api_key" ${QUAMOTION_URL}/api/login | jq -r '.access_token'`
@@ -21,7 +17,7 @@ QUAMOTION_TEST_JOBS=`curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" 
 QUAMOTION_TEST_JOB=`echo $QUAMOTION_TEST_JOBS | jq -r '.[0].id'`
 
 # Forward the job output to Bitrise
-curl -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_PROJECT_URL}api/job/${QUAMOTION_TEST_JOB}/log/live
+curl -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/log/live
 
 # Download the artifact zip file
 curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/artifacts -O quamotion-artifacts.zip
