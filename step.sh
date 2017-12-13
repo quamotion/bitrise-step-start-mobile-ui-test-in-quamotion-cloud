@@ -12,14 +12,28 @@ QUAMOTION_TEST_RUN_REQUEST="{ \"app\": { \"operatingSystem\": \"$app_os\", \"app
 QUAMOTION_TEST_RUN=`curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" -H "Content-Type: application/json" -d "$QUAMOTION_TEST_RUN_REQUEST" -X POST ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/testRun`
 echo "Successfully scheduled the test run"
 
+# This may take a while, so do some polling here.
 QUAMOTION_TEST_RUN_ID=`echo $QUAMOTION_TEST_RUN | jq -r '.testRunId'`
-QUAMOTION_TEST_JOBS=`curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/testRun/${QUAMOTION_TEST_RUN_ID}/jobs`
-QUAMOTION_TEST_JOB=`echo $QUAMOTION_TEST_JOBS | jq -r '.[0].id'`
+QUAMOTION_TEST_JOB="null"
+
+while [ "$QUAMOTION_TEST_JOB" == "null" ]
+do
+  QUAMOTION_TEST_JOBS=`curl -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/testRun/${QUAMOTION_TEST_RUN_ID}/jobs || exit 0`
+  echo "Test jobs: $QUAMOTION_TEST_JOBS"
+
+  QUAMOTION_TEST_JOB=`echo $QUAMOTION_TEST_JOBS | jq -r '.[0].id'`
+  echo "Test job ID: $QUAMOTION_TEST_JOB"
+done
 
 # Forward the job output to Bitrise
+echo "-- build log start --"
+curl -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/log/live
 curl -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/log/live
 
+echo "-- build log end  --"
+
 # Download the artifact zip file
+echo "Downloading build artifact to quamotion-artifacts.zip"
 curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}/artifacts -O quamotion-artifacts.zip
 
 #
