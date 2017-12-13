@@ -94,7 +94,7 @@ inputs:
     opts:
       title: "The operating system to test on"
       summary: The operating system to test on. Can be iOS or Android.
-      descripton: |
+      description: |
         The operating system to test on. Can be iOS or Android.
       is_expand: true
       is_required: true
@@ -102,7 +102,8 @@ inputs:
      opts:
        title: "The ID of the app to test"
        summary: The ID of the app to test.
-       description: The ID of the app to test.
+       description: |
+         The ID of the app to test.
        is_expand: true
        is_required: true
    - app_version: The version of the app to test.
