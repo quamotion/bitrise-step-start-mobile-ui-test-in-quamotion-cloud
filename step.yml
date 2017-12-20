@@ -81,6 +81,15 @@ inputs:
       is_expand: true
       is_required: true
       value_options: []
+  - test_script_parameters: Any additional command line parameters you want to pass to your test script
+    opts:
+      title: "Test script parameters"
+      summary: Any additional command line parameters you want to pass to your test script
+      description: |
+        Any additional command line parameters you want to pass to your test script
+      is_expand: true
+      is_required: false
+      value_options: []
   - test_package_version: The version of the Test Package to run
     opts:
       title: "Version of the test package to run"
