@@ -12,7 +12,7 @@ QUAMOTION_TEST_RUN_REQUEST="{ \"app\": { \"operatingSystem\": \"$app_os\", \"app
 QUAMOTION_TEST_RUN=`curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" -H "Content-Type: application/json" -d "$QUAMOTION_TEST_RUN_REQUEST" -X POST ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/testRun`
 echo "Successfully scheduled the test run"
 echo ">> Request"
-echo $QUAMOTION_TEST_RUN_REQUEST"
+echo "$QUAMOTION_TEST_RUN_REQUEST"
 echo "<<Request"
 echo ">> Response"
 echo "$QUAMOTION_TEST_RUN"
