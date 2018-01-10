@@ -11,6 +11,12 @@ echo "Scheduling the test run"
 QUAMOTION_TEST_RUN_REQUEST="{ \"app\": { \"operatingSystem\": \"$app_os\", \"appId\": \"$app_id\", \"version\": \"$app_version\" } ,\"testPackage\": { \"name\": \"$test_package_name\", \"version\": \"$test_package_version\" }, \"testScriptParameters\": \"$test_script_parameters\", \"deviceGroupId\": \"57b9dda4-d1e4-423f-89c7-6f523daecb2e\"}"
 QUAMOTION_TEST_RUN=`curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" -H "Content-Type: application/json" -d "$QUAMOTION_TEST_RUN_REQUEST" -X POST ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/testRun`
 echo "Successfully scheduled the test run"
+echo ">> Request"
+echo $QUAMOTION_TEST_RUN_REQUEST"
+echo "<<Request"
+echo ">> Response"
+echo "$QUAMOTION_TEST_RUN"
+echo "<< Response"
 
 # This may take a while, so do some polling here.
 QUAMOTION_TEST_RUN_ID=`echo $QUAMOTION_TEST_RUN | jq -r '.testRunId'`
