@@ -42,7 +42,7 @@ curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" -o quamotion-artifact
 QUAMOTION_TEST_RESULT=`curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" -H "Content-Type: application/json" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/job/${QUAMOTION_TEST_JOB}`
 QUAMOTION_TEST_STATUS=`echo $QUAMOTION_TEST_RESULT | jq -r '.status'`
 
-echo "The build has completed with $QUAMOTION_TEST_STATUS"
+echo "The build has completed; the build status is $QUAMOTION_TEST_STATUS"
 
 if [ "$QUAMOTION_TEST_STATUS" == "success" ]; then
   exit 0
