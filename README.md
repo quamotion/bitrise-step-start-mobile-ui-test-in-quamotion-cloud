@@ -2,62 +2,47 @@
 
 Quamotion Cloud allows you to test your application on multiple devices - either physical devices or emulators. This step allows you to start a test run, which will execute your test cases one or more devices.
 
+## What this step does
 
-## How to use this Step
+This step runs tests on iOS or Android devices in the [Quamotion Cloud](https://cloud.quamotion.mobi). Before you can run a test,
+you first need to [publish your app to Quamotion Cloud](https://github.com/quamotion/bitrise-step-publish-app-to-quamotion-cloud)
+and [publish your test package to Quamotion Cloud](https://github.com/quamotion/bitrise-step-publish-test-package-to-quamotion-cloud).
 
-Can be run directly with the [bitrise CLI](https://github.com/bitrise-io/bitrise),
-just `git clone` this repository, `cd` into it's folder in your Terminal/Command Line
-and call `bitrise run test`.
+This step takes parameters:
+- Your Quamotion API key
+- The test package and the version of the test package to run, and any additional parameters you want to pass to your test package.
+- The operating system to test on, the app you want to test, and the version of the app you want to test.
 
-*Check the `bitrise.yml` file for required inputs which have to be
-added to your `.bitrise.secrets.yml` file!*
+## See also
 
-Step by step:
+This step is part of a series of Bitrise steps which integrate Quamotion Cloud with Bitrise.
 
-1. Open up your Terminal / Command Line
-2. `git clone` the repository
-3. `cd` into the directory of the step (the one you just `git clone`d)
-5. Create a `.bitrise.secrets.yml` file in the same directory of `bitrise.yml`
-   (the `.bitrise.secrets.yml` is a git ignored file, you can store your secrets in it)
-6. Check the `bitrise.yml` file for any secret you should set in `.bitrise.secrets.yml`
-  * Best practice is to mark these options with something like `# define these in your .bitrise.secrets.yml`, in the `app:envs` section.
-7. Once you have all the required secret parameters in your `.bitrise.secrets.yml` you can just run this step with the [bitrise CLI](https://github.com/bitrise-io/bitrise): `bitrise run test`
+* Use the [Publish app to Quamotion Cloud](https://github.com/quamotion/bitrise-step-publish-app-to-quamotion-cloud) step
+  to publish your iOS or Android app to [Quamotion Cloud](https://cloud.quamotion.mobi).
+* Use the [Publish test package to Quamotion Cloud](https://github.com/quamotion/bitrise-step-publish-test-package-to-quamotion-cloud/)
+  step to publish your Maven or Pester tests to [Quamotion Cloud](https://cloud.quamotion.mobi).
+* Use the [Start Mobile UI Test in Quamotion Cloud](https://github.com/quamotion/bitrise-step-start-mobile-ui-test-in-quamotion-cloud)
+  step to test your iOS or Android app in [Quamotion Cloud](https://cloud.quamotion.mobi).
 
-An example `.bitrise.secrets.yml` file:
+## Adding this step to your Bitrise workflow
+To use this step, follow these steps:
+
+1. Open your workflow in Bitrise
+2. Click on the `bitrise.yml` tab in the upper-right corner of your screen
+3. Copy and paste the following code in your Bitrise workflow to add this step:
 
 ```
-envs:
-- A_SECRET_PARAM_ONE: the value for secret one
-- A_SECRET_PARAM_TWO: the value for secret two
+- git::https://github.com/quamotion/bitrise-step-start-mobile-ui-test-in-quamotion-cloud@master:
+    title: Run Quamotion tests
+    inputs:
+    - quamotion_api_key: _YOUR_API_KEY_
+    - test_package_name: _YOUR_TEST_PACKAGE_
+    - test_package_version: _YOUR_TEST_PACKAGE_VERSION_
+    - test_script_parameters: _ADDITIONAL_PARAMETERS_
+    - app_os: Android
+    - app_id: _YOUR_APP_ID_
+    - app_version: _YOUR_APP_VERSION_
 ```
 
-## How to contribute to this Step
+4. Save your workflow by clicking __CTRL + S__
 
-1. Fork this repository
-2. `git clone` it
-3. Create a branch you'll work on
-4. To use/test the step just follow the **How to use this Step** section
-5. Do the changes you want to
-6. Run/test the step before sending your contribution
-  * You can also test the step in your `bitrise` project, either on your Mac or on [bitrise.io](https://www.bitrise.io)
-  * You just have to replace the step ID in your project's `bitrise.yml` with either a relative path, or with a git URL format
-  * (relative) path format: instead of `- original-step-id:` use `- path::./relative/path/of/script/on/your/Mac:`
-  * direct git URL format: instead of `- original-step-id:` use `- git::https://github.com/user/step.git@branch:`
-  * You can find more example of alternative step referencing at: https://github.com/bitrise-io/bitrise/blob/master/_examples/tutorials/steps-and-workflows/bitrise.yml
-7. Once you're done just commit your changes & create a Pull Request
-
-
-## Share your own Step
-
-You can share your Step or step version with the [bitrise CLI](https://github.com/bitrise-io/bitrise). If you use the `bitrise.yml` included in this repository, all you have to do is:
-
-1. In your Terminal / Command Line `cd` into this directory (where the `bitrise.yml` of the step is located)
-1. Run: `bitrise run test` to test the step
-1. Run: `bitrise run audit-this-step` to audit the `step.yml`
-1. Check the `share-this-step` workflow in the `bitrise.yml`, and fill out the
-   `envs` if you haven't done so already (don't forget to bump the version number if this is an update
-   of your step!)
-1. Then run: `bitrise run share-this-step` to share the step (version) you specified in the `envs`
-1. Send the Pull Request, as described in the logs of `bitrise run share-this-step`
-
-That's all ;)
