@@ -8,6 +8,8 @@ This step runs tests on iOS or Android devices in the [Quamotion Cloud](https://
 you first need to [publish your app to Quamotion Cloud](https://github.com/quamotion/bitrise-step-publish-app-to-quamotion-cloud)
 and [publish your test package to Quamotion Cloud](https://github.com/quamotion/bitrise-step-publish-test-package-to-quamotion-cloud).
 
+![Run Mobile UI Test in Quamotion Cloud](bitrise_run_quamotion_test.png)
+
 This step takes parameters:
 - Your Quamotion API key
 - The test package and the version of the test package to run, and any additional parameters you want to pass to your test package.
