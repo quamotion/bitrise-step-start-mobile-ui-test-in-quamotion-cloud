@@ -61,7 +61,6 @@ toolkit:
   bash:
     entry_file: step.sh
 
-
 inputs:
   - quamotion_api_key: Your Quamotion API Key
     opts:
@@ -103,6 +102,9 @@ inputs:
         The operating system to test on. Can be iOS or Android.
       is_expand: true
       is_required: true
+      value_options:
+      - iOS
+      - Android
   - app_id: The version of the app to test.
     opts:
       title: "The ID of the app to test"
