@@ -26,7 +26,9 @@ QUAMOTION_TEST_JOB="null"
 while [ "$QUAMOTION_TEST_JOB" == "null" ]
 do
   QUAMOTION_TEST_JOBS=`curl -s -H "Authorization: Bearer $QUAMOTION_ACCESS_TOKEN" ${QUAMOTION_URL}${QUAMOTION_RELATIVE_URL}api/testRun/${QUAMOTION_TEST_RUN_ID}/jobs || exit 0`
-  QUAMOTION_TEST_JOB=`echo $QUAMOTION_TEST_JOBS | jq -r '.[0].id'`
+  echo "Currently running jobs:"
+  echo $QUAMOTION_TEST_JOBS
+  QUAMOTION_TEST_JOB=`(echo $QUAMOTION_TEST_JOBS | jq -r '.[0].id') || (echo null)`
   echo "The test job is being queued"
 done
 
