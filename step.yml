@@ -71,7 +71,6 @@ inputs:
         See your Quamotion Cloud project for more information on how to create API keys.
       is_expand: true
       is_required: true
-      value_options: []
   - test_package_name: The Test Package to run
     opts:
       title: "Test Package to run"
@@ -80,7 +79,6 @@ inputs:
         The name of the test package to run.
       is_expand: true
       is_required: true
-      value_options: []
   - test_script_parameters: Any additional command line parameters you want to pass to your test script
     opts:
       title: "Test script parameters"
@@ -89,7 +87,6 @@ inputs:
         Any additional command line parameters you want to pass to your test script
       is_expand: true
       is_required: false
-      value_options: []
   - test_package_version: The version of the Test Package to run
     opts:
       title: "Version of the test package to run"
