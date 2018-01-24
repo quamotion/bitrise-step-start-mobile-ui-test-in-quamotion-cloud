@@ -121,6 +121,20 @@ inputs:
         The version of the app to test.
       is_expand: true
       is_required: true
+  - device_group_id: The group of devices on which you want to test
+    opts:
+      title: "The group of devices on which you want to test"
+      summary: "The group of devices on which you want to test"
+      description: |
+        The group of devices on which you want to test.
+        Use `57b9dda4-d1e4-423f-89c7-6f523daecb2e` for Android and
+        `2ee33b01-09a6-4483-827b-1d0498ee9aaa` for iOS. We'll make this
+        easier in the future :smile.
+      is_expand: true
+      is_required: true
+      value_options:
+      - 57b9dda4-d1e4-423f-89c7-6f523daecb2e
+      - 2ee33b01-09a6-4483-827b-1d0498ee9aaa
 
 outputs:
   - TEST_RUN_ID:
