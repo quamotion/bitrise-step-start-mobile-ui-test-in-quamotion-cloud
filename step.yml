@@ -126,15 +126,49 @@ inputs:
       title: "The group of devices on which you want to test"
       summary: "The group of devices on which you want to test"
       description: |
-        The group of devices on which you want to test.
-        Use `57b9dda4-d1e4-423f-89c7-6f523daecb2e` for Android and
-        `2ee33b01-09a6-4483-827b-1d0498ee9aaa` for iOS. We'll make this
-        easier in the future :smile.
+        The group of devices on which you want to test. You can choose from both physical iOS
+        and Android devices as well as Genymotion emulators running Android. Emulators provide
+        you with a fast way to check the quality of your app; whereas physical devices allow
+        you to test the compatibility of your app with different devices.
       is_expand: true
       is_required: true
       value_options:
-      - 57b9dda4-d1e4-423f-89c7-6f523daecb2e
-      - 2ee33b01-09a6-4483-827b-1d0498ee9aaa
+      - physical-ios-11
+      - physical-android-4.4.2
+      - physical-android-4.4.4
+      - physical-android-5.0.1
+      - physical-android-5.0.2
+      - physical-android-5.1
+      - physical-android-6.0
+      - physical-android-7.0
+      - physical-android-7.1
+      - physical-android-8.0
+      - genymotion-google-pixel-android-8
+      - genymotion-google-nexus-6p-android-7.1
+      - genymotion-samsung-galaxy-s7-4.0
+      - genymotion-google-nexus-6p-android-7.0
+      - genymotion-samsung-galaxy-s8-android-7.0
+      - genymotion-google-nexus-6p-android-6.0
+      - genymotion-samsung-galaxy-s7-android-6.0
+      - genymotion-google-pixel-c-android-6.0
+      - genymotion-google-nexus-9-android-6.0
+      - genymotion-samsung-galaxy-s6-android-6.0
+      - genymotion-google-nexus-7-android-5.1
+      - genymotion-samsung-galaxy-s6-android-5.1
+      - genymotion-google-nexus-7-android-5.0
+      - genymotion-samsung-galaxy-s6-android-5.0
+      - genymotion-google-nexus-10-android-5.1
+      - genymotion-google-nexus-7-android-4.4.4
+      - genymotion-samsung-galaxy-s5-android-4.4.4
+      - genymotion-motorola-moto-x-android-4.4.4
+      - genymotion-htc-one-android-4.4.4
+      - genymotion-google-nexus-10-android-4.4.4
+      - genymotion-google-nexus-7-android-4.3
+      - genymotion-samsung-galaxy-note-android-4.3
+      - genymotion-sony-xperia-z-android-4.3
+      - genymotion-htc-evo-4g-lte-android-4.3
+      - genymotion-motorola-moto-x-android-4.3
+      - genymotion-samsung-galaxy-s6-android-7.0
 
 outputs:
   - TEST_RUN_ID:
